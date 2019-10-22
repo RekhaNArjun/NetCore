@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/runtime:2.2 AS 
+FROM mcr.microsoft.com/dotnet/core/runtime:2.2 
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
