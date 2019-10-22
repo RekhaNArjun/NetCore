@@ -1,8 +1,8 @@
 FROM mcr.microsoft.com/dotnet/core/runtime:2.2 
-WORKDIR /app
+WORKDIR /NetCore
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY WebApp.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
@@ -11,6 +11,8 @@ RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
-WORKDIR /app
-COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+WORKDIR /NetCore
+
+COPY --from= ./NetCore
+/out .
+ENTRYPOINT ["dotnet", "WebApp.dll"]
