@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1803 AS base
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1803 AS base:latest
 WORKDIR /NetCore
 EXPOSE 80
 
