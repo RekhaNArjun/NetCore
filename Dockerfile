@@ -1,18 +1,18 @@
-FROM mcr.microsoft.com/dotnet/core/runtime:2.2 
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
 WORKDIR /NetCore
 
-# Copy csproj and restore as distinct layers
-COPY WebApp.csproj ./
+# copy csproj and restore as distinct layers
+COPY AspNetCore.sln .
+COPY aspnetapp/*.csproj ./aspnetapp/
 RUN dotnet restore
 
-# Copy everything else and build
-COPY . ./
+# copy everything else and build app
+COPY aspnetapp/. ./aspnetapp/
+WORKDIR /app/aspnetapp
 RUN dotnet publish -c Release -o out
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
-WORKDIR /NetCore
 
-COPY --from= ./NetCore
-/out .
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/aspnetapp/out ./
 ENTRYPOINT ["dotnet", "WebApp.dll"]
