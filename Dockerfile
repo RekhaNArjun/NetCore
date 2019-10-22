@@ -3,7 +3,6 @@ WORKDIR /NetCore
 
 # copy csproj and restore as distinct layers
 COPY AspNetCore.sln .
-RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
 
