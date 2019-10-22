@@ -3,7 +3,7 @@ WORKDIR /NetCore
 
 # copy csproj and restore as distinct layers
 COPY AspNetCore.sln .
-COPY aspnetapp/*.csproj ./aspnetapp/
+COPY aspnetapp/WebApp.csproj ./aspnetapp/
 RUN dotnet restore
 
 # copy everything else and build app
