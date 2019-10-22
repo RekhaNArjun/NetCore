@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/runtime:3.0 AS build
+FROM mcr.microsoft.com/dotnet/core/runtime:3.0 
 WORKDIR /NetCore
 
 # copy csproj and restore as distinct layers
@@ -14,5 +14,5 @@ RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/aspnetapp/out ./
+COPY /app/aspnetapp/out ./
 ENTRYPOINT ["dotnet", "WebApp.dll"]
