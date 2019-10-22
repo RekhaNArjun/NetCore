@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1803 AS base:latest
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1803 
 WORKDIR /NetCore
 EXPOSE 80
 
@@ -15,5 +15,5 @@ RUN dotnet publish "WebApp.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /NetCore
-COPY --from=publish /NetCore .
+COPY publish /NetCore .
 ENTRYPOINT ["dotnet", "WebApp.dll"]
