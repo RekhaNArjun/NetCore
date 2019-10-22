@@ -2,7 +2,7 @@ FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1803
 WORKDIR /NetCore
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk-nanoserver-1803 AS build
+FROM microsoft/dotnet:2.1-sdk-nanoserver-1803 A
 WORKDIR /src
 COPY ["NetCore/WebApp/WebApp.csproj", "WebApp/"]
 RUN dotnet restore "NetCore/WebApp/WebApp.csproj"
