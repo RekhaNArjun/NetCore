@@ -1,19 +1,16 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1803 
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 WORKDIR /NetCore
-EXPOSE 80
+EXPOSE 90
 
-FROM microsoft/dotnet:2.1-sdk-nanoserver-1803 A
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 WORKDIR /src
-COPY ["NetCore/WebApp/WebApp.csproj", "WebApp/"]
-RUN dotnet restore "NetCore/WebApp/WebApp.csproj"
+COPY ["NetCore/WebApi/WebApi.csproj", "WebApi/"]
+RUN dotnet restore "WebApi/WebApi.csproj"
 COPY . .
-WORKDIR "/src/WebApp"
-RUN dotnet build "WebApp.csproj" -c Release -o /app
+WORKDIR "/src/WebApi"
+RUN dotnet build "WebApi.csproj" -c Release -o /WebApi
 
-FROM build AS publish
-RUN dotnet publish "WebApp.csproj" -c Release -o /app
+RUN dotnet publish "WebApi.csproj" -c Release -o /WebApi
 
-FROM base AS final
-WORKDIR /NetCore
-COPY publish /NetCore .
-ENTRYPOINT ["dotnet", "WebApp.dll"]
+WORKDIR /WebApi
+ENTRYPOINT ["dotnet", "WebApi.dll"]
