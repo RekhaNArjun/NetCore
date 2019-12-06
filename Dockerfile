@@ -1,16 +1,16 @@
+  
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 WORKDIR /NetCore
-EXPOSE 90
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 WORKDIR /src
-COPY ["WebApi/WebApi.csproj", "WebApi/"]
-RUN dotnet restore "WebApi/WebApi.csproj"
+COPY ["WebApp/WebApp.csproj", "WebApp/"]
+RUN dotnet restore "WebApp/WebApp.csproj"
 COPY . .
-WORKDIR "/src/WebApi"
-RUN dotnet build "WebApi.csproj" -c Release -o /WebApi
+WORKDIR "/src/WebApp"
+RUN dotnet build "WebApp.csproj" -c Release -o /WebApp
 
-RUN dotnet publish "WebApi.csproj" -c Release -o /WebApi
+RUN dotnet publish "WebApp.csproj" -c Release -o /WebApp
 
-WORKDIR /WebApi
-ENTRYPOINT ["dotnet", "WebApi.dll"]
+WORKDIR /WebApp
+ENTRYPOINT ["dotnet", "WebApp.dll"]
